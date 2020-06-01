@@ -1,0 +1,93 @@
+<html>
+
+<form action="" method="POST">
+{% csrf_token %}
+
+<div>
+{% if user.is_authenticated %}
+   <label id="user"> {{user.username}} </label>
+{% endif %}
+</div>
+<div style="width: 802px; height: 129px">
+    {% for value in all_question %}
+    <table style="width: 100%; height: 123px;">
+        <tr>
+            <td class="auto-style3"style="text-align: right; font-family: 'Arial Black'; font-size: large; font-weight: bold;">Q{{forloop.counter}}:-</td>
+            <td class="auto-style2" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: large; font-weight: bold">{{value.questiontext}}</td>
+            
+        </tr>
+         <tr>
+            <td class="auto-style3" style="text-align: right">A)</td>
+            <td class="auto-style2"><input type="radio" id="{{value.option1}}" value="{{value.option1}}" name="{{value.question_id}}" />{{value.option1}}</td>
+            
+        </tr>
+         <tr>
+            <td class="auto-style3"style="text-align: right">B)</td>
+            <td class="auto-style2"><input type="radio" id="{{value.option2}}" value="{{value.option2}}" name="{{value.question_id}}" />{{value.option2}}</td>
+            
+        </tr>
+         <tr>
+            <td class="auto-style3"style="text-align: right">C)</td>
+            <td class="auto-style2"><input type="radio" id="{{value.option3}}" value="{{value.option3}}" name="{{value.question_id}}" />{{value.option3}}</td>
+            
+        </tr>
+        <tr>
+            <td class="auto-style3" style="text-align: right">D)</td>
+            <td class="auto-style2"><input type="radio" id="{{value.option4}}" value="{{value.option4}}" name="{{value.question_id}}" />{{value.option4}}</td>
+            
+        </tr>
+        
+        <tr>
+            <td class="auto-style3" style="text-align: right"></td>
+            <td class="auto-style2"><label id="correctAnswe{{forloop.counter}}" style="visibility:hidden">{{value.correctanswer}}</label></td>
+            
+        </tr>
+        
+        
+    </table>
+    <br/>
+    {% endfor %}
+    
+    <div class="row">
+        <div class="col-12">
+             <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg px-5" />
+        </div>
+        
+        <label id="demo">{{count}}</label>
+   </div>
+</div>
+</form>
+
+<!--
+<script>
+        function getresult()
+        {
+           var e=document.getElementByTagName("input");
+           var i;
+           var count=0;
+           for(i=0;i<=e.length;i++)
+           {
+           
+              
+             if(e[i].type=="radio")
+             {
+                 if(e[i].cheked)
+                 {
+                     var option=e[i].value;
+                     var id="correctAnswer"+i+1;
+                     var correctanswer=document.getElementById(id);
+                     var correct=correctanswer.innerText;
+                     if(option.localeCompare(correct)==0)
+                     {
+                        count=count+1;
+                     }
+                 }
+             }
+           }
+           document.getElementById("demo").innerHTML=count;
+           
+        }
+    <script/>
+-->
+
+</html>

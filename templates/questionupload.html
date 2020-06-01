@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap Multi Step Registration Form Template</title>
+        {% load static %}
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/form-elements.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Favicon and touch icons -->
+        
+    </head>
+
+    <body style="background-image: url('../media/images/1@2x.jpg')">
+
+		<!-- Top menu -->
+		<!-- Top menu -->
+		<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html">Register Course Details</a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="top-navbar-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<span class="li-text">
+								Put some text or
+							</span> 
+							<a href="#"><strong>links</strong></a> 
+							<span class="li-text">
+								here, or some icons: 
+							</span> 
+							<span class="li-social">
+								<a href="#"><i class="fa fa-facebook"></i></a> 
+								<a href="#"><i class="fa fa-twitter"></i></a> 
+								<a href="#"><i class="fa fa-envelope"></i></a> 
+								<a href="#"><i class="fa fa-skype"></i></a>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1><strong>Register</strong> Details for a specific course</h1>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	
+                        	<form action="" method="POST" class="registration-form" enctype="multipart/form-data">
+                        	
+                        	  
+                        		
+                        		<fieldset>
+                        		{% csrf_token %}
+		                        	<div class="form-top">
+		                        		<div class="form-top-left">
+		                        			<h3>Step 1 / 2</h3>
+		                            		<p>select the course here</p>
+		                        		</div>
+		                        		<div class="form-top-right">
+		                        			<i class="fa fa-user"></i>
+		                        		</div>
+		                            </div>
+		                            <div class="form-bottom">
+				                    	<div class="form-group">
+				                    		<label class="sr-only" for="form-first-name">Course catagory</label>
+				                    		
+				                          	
+				                        	  
+				                        	  <select name="itemid">
+				                        	  {% for key,value in courses.items %}
+				                        	         <option value="{{value.course_id}}">{{value.coursename}}</option>
+				                        	   {% endfor %}      
+				                        	  </select>
+				                        	   
+									         <label>Enter Total number of lecture :</label>
+											 <br/>
+											 <input type="number" name="number" id="number">&nbsp;
+											 <input type="button" name="create" onclick="fun()" Value="Create" >
+											 
+									  </div>
+				                        	    
+				                           <div class="box">
+				                        <div class="form-group">
+				                           
+				                            <label>-------------------------------------- &nbsp;QUESTION &nbsp;----------------------------------------</label>
+				                            <br/>
+				                        
+				                        	Question Name :<input type="text" name="title" placeholder="Question Name" class="form-first-name form-control">
+				                        	Option1 :<input type="text" name="option1" placeholder="First option" class="form-first-name form-control">
+				                        	Option2 :<input type="text" name="option2" placeholder="Second option" class="form-first-name form-control">
+				                        	Option3 :<input type="text" name="option3" placeholder="Second option" class="form-first-name form-control">
+				                        	Option4 :<input type="text" name="option4" placeholder="Third option" class="form-first-name form-control">
+				                        	Correct Answer :<input type="text" name="answer" placeholder="Correct Answer" class="form-first-name form-control">
+											
+											<br/>
+											<br/>
+				                        </div>
+				                        	
+				                        	 
+				                        	
+				                        
+				                        </div>
+				                     
+				                        	
+										
+										
+				                        <button type="button" class="btn btn-next">Next</button>
+				                    </div>
+			                    </fieldset>
+			                    
+			                    <fieldset>
+		                        	<div class="form-top">
+		                        		<div class="form-top-left">
+		                        			<h3>Step 2 / 2</h3>
+		                            		<p>Add Lecture Details</p>
+		                        		</div>
+		                        		<div class="form-top-right">
+		                        			<i class="fa fa-key"></i>
+		                        		</div>
+		                            </div>
+		                            <div class="form-bottom">
+									  
+									
+				                        
+									</div>	
+				                        <button type="button" class="btn btn-previous">Previous</button>
+				                        <button type="submit" name="submit" class="btn">Submit</button>
+				                    </div>
+			                    </fieldset>
+			                  
+			                    
+		                    
+		                    </form>
+		                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Javascript -->
+        <script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
+        <script src="{% static 'assets/js/retina-1.1.0.min.js' %}"></script>
+        <script src="{% static 'assets/js/scripts.js' %}"></script>
+		 <script>
+  function fun(){
+  var num=document.getElementById("number").value;
+  function multiplyNode(node, num, deep) {
+    for (var i = 0, copy; i < num - 1; i++) {
+        
+        copy = node.cloneNode(deep);
+        node.parentNode.insertBefore(copy, node);
+    }
+}
+
+multiplyNode(document.querySelector('.box'), num, true);
+}
+  </script>
+        
+        <!--[if lt IE 10]>
+            <script src="{% static 'assets/js/placeholder.js' %}"></script>
+        <![endif]-->
+
+    </body>
+
+</html>
