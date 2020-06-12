@@ -16,6 +16,10 @@ User=get_user_model()
 
 def basic(request):
     return render(request,'basic.html')
+
+def experiment(request):
+    return render(request,'experiment.html')
+
 @login_required
 def exam1(request,courseid):
     all_question=Question.objects.filter(course_id=courseid)

@@ -9,18 +9,15 @@
         }
         #courselist {
             width: 894px;
-            margin-left: 240px;
-        }
-        .auto-style3 {
-            width: 113px;
+            margin-left: 0px;
         }
         #play {
             height: 388px;
             margin-left: 4px;
             width: 720px;
         }
-        .auto-style4 {
-            width: 496px;
+        .auto-style1 {
+            width: 1px;
         }
     </style>
   {% load static %}
@@ -165,8 +162,52 @@
                    
                  <a href="{% url 'exam1' courseid=all_courses.0.course_id %}" class="small btn btn-primary px-4 py-2 rounded-0">Exam</a>
              <br />
-            <div id="courselist" class="align-self-center">
+            <div id="courselist" class="align-self-left">
                 {% for videos in all_videos %}
+                
+                
+
+
+                <table style="width:100%;">
+                    <tr>
+                        <td rowspan="4" class="auto-style1"><a href="{{ MEDIA_URL }}{{ videos.lecturevideo }}" class="video-1 mb-4" data-fancybox="" data-ratio="2">
+                            <img alt="playbutton" src="{% static 'images/playbutton.jpg' %}" style="height: 53px; width: 56px" /></a>
+                            </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><a href="{{ MEDIA_URL }}{{ videos.lecturevideo }}" class="video-1 mb-4" data-fancybox="" data-ratio="2">{{videos.lecturename}}</a></td>
+                    </tr>
+                    <tr>
+                        
+                        <td>Uploaded on: {{videos.lecturedate}} </td>
+                    </tr>
+                   
+                </table>
+                
+               <br /> 
+
+
+        <!--
+
+         <div>
+                    
+           <a href="{{ MEDIA_URL }}{{ videos.lecturevideo }}" class="video-1 mb-4" data-fancybox="" data-ratio="2">
+              
+              <img src="images/course_5.jpg" alt="Image" class="img-fluid">
+
+               
+            </a>  
+                        
+                    
+         </div>   
+                
+                
+
+-->
+
+
+           <!--
                <table style="width: 81%; margin-left: 1px;" align="center">
                 
                     <tr style="border-bottom-style: inset; border-bottom-color: #C0C0C0">
@@ -196,7 +237,7 @@
                 </div>
 
                 <br />
-                
+           -->     
                 {% endfor %}
             </div>  
                     
