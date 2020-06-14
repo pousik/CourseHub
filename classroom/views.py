@@ -3,19 +3,61 @@ from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
+from django.shortcuts import render_to_response
 from datetime import date,datetime
 from main.models import Course
 from main.models import Lecture
 from main.models import StudentCourseRegistration
 from main.models import Question
+from main.models import Examination
+
+
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+
+from xhtml2pdf import pisa
+
+from django.views.generic import View
+import pdfkit
+
+
+
 
 
 
 
 User=get_user_model()
 
+
+
+def generatecertificate(request):
+    all_courses=Examination.objects.filter(student_id=request.user)
+    
+        
+        
+    return render(request,'generatecertificate.html',{'all_courses':all_courses})
+
+
+def getPdfPage(request,courseid):
+    all_student=Examination.objects.filter(examination_id=courseid)
+    data={'students':all_student}
+    template=get_template("invoice.html")
+    data_p=template.render(data)
+    response=BytesIO()
+
+    pdfPage=pisa.pisaDocument(BytesIO(data_p.encode("UTF-8")),response)
+    if not pdfPage.err:
+        return HttpResponse(response.getvalue(),content_type="application/pdf")
+    else:
+        return HttpResponse("Error Generating PDF")
+    
+    
 def basic(request):
     return render(request,'basic.html')
+
+def confirmregistration(request):
+    return render(request,'confirmregistration.html')
 
 def experiment(request):
     return render(request,'experiment.html')
@@ -23,20 +65,39 @@ def experiment(request):
 @login_required
 def exam1(request,courseid):
     all_question=Question.objects.filter(course_id=courseid)
-    
+    value=len(all_question)
+        
+    exam_details=Examination()
     count=0;
     if request.method=="POST":
-        for question in all_question:
-            id=question.question_id
-            choice=request.POST.get(id)
-            if choice==question.correctanswer:
-                print('yes')
-                count=count+1
+        try:
+            for question in all_question:
+               id=question.question_id
+               choice=request.POST.get(id)
+               if choice==question.correctanswer:
+                   
+                   print('yes')
+                   count=count+1
                  
-        print(count)    
-       
+            aggregate=float(count/value)*100
+            if aggregate > 40:
+               exam_details.resultstatus="pass"
+            else:
+               exam_details.resultstatus="fail"
+            exam_details.student_id=request.user
+            exam_details.course_id=Course.objects.get(course_id=courseid)
+            exam_details.aggregate=aggregate
+        
+            exam_details.save()
+            return render(request,'confirmregistration.html')
+        except IntegrityError:
+            
+            return render(request, 'Exam1.html' , {'error' : 'Username already given exam !!'})
+        
+        
+        
     
-    return render(request,'Exam1.html',{'all_question':all_question,'count':count})
+    return render(request,'Exam1.html',{'all_question':all_question,'count':count,'value':value})
 
 def questionupload(request):
     all_courses = Course.objects.all()
@@ -121,7 +182,7 @@ def coursesingle(request,courseid):
         scoureg.student_id=request.user
         scoureg.course_id=cour
         scoureg.save()
-        return redirect('home')
+        return render(request,'confirmregistration.html')
     
     # return the emp_detail.html template file to client, and pass the filtered out Employee object.
     return render(request, 'coursesingle.html', {'cour': cour , 'key' : courseid })
@@ -195,7 +256,7 @@ def s_registration(request):
                                                 address =  request.POST['address'], email = request.POST['email'],
                                                 mobile= request.POST['mobile'],is_student=True)
                 auth.login(request, user)
-                return redirect('s_registration')
+                return render(request,'login.html')
         else:
             return render(request, 'register.html' , {'error' : 'Password dis not Match !!'})
         
@@ -265,7 +326,13 @@ def courseregistration(request):
 def allvideos(request,courseid):
     all_courses=Course.objects.filter(course_id=courseid)
     all_videos=Lecture.objects.filter(course_id=courseid)
+    '''try:
+        status=Question.objects.get(course_id=courseid)
+    except Question.DoesNotExists:
+        status=None
+       ''' 
     return render(request, 'allvideos.html', {'all_videos':all_videos,'key' : courseid,'all_courses':all_courses})
+    
     '''
     video = None
     all_videos = Lecture.objects.all()

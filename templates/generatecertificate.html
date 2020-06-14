@@ -1,0 +1,16 @@
+<head>
+    <style type="text/css">
+        .px-5 {
+            height: 30px;
+            width: 224px;
+        }
+    </style>
+</head>
+{% extends 'basic1.html' %}
+
+{% block body %}
+ {% for value in all_courses %}
+ 
+ <p style="width: 134px"><a href="{% url 'invoice' courseid=value.examination_id %}" class="btn btn-primary rounded-0 px-4">Get Certificate</a></p>
+ {% endfor %}
+{% endblock %}

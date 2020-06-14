@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>Title</title>
+       
+        <style type="text/css">
+            .auto-style1 {
+                width: 140px;
+            }
+            .auto-style2 {
+                width: 47px;
+            }
+        </style>
+       
+        </head>
+    <body>
+        <p></p>
+        <p></p>
+       {% for value in students %}
+        <table style="border: medium outset #666666;">
+            <tr>
+                <td><div style=" height: 354px; width: 647px;" id="main">
+
+            <div style="text-align: center">
+
+            <img src="../main/static/images/congratulation.jpg" style="height: 59px; width: 197px"  /></div>
+                        <!-- 
+            <table style="width: 100%; height: 350px; background-color: #FFCCFF;">
+                
+                <tr>
+                    <td class="auto-style1" style="font-size: xx-large; text-align: center; font-family: 'Bahnschrift Light Condensed';">
+                        <br />
+                        Certificate of Completion</td>
+                </tr>
+                <tr>
+                    <td class="auto-style9" style="text-align: center; font-size: medium">This is to certify that</td>
+                </tr>
+                <tr>
+                    <td style=" text-align: center;" class="auto-style10">{{value.student_id.first_name}}{{value.student_id.last_name}}</td>
+                </tr>
+                <tr>
+                    <td style=" text-align: center;" class="auto-style11">has successfully completed the course</td>
+                </tr>
+                <tr>
+                    <td style=" text-align: center;" class="auto-style7">{{value.course_id.coursename}}</td>
+                </tr>
+                <tr>
+                    <td style=" text-align: center;">&nbsp;</td>
+                </tr>
+            </table>
+            -->
+                        
+            <div style="text-align: center">
+            <img alt="" src="../main/static/images/certificateforcompletion.jpg" style="height: 36px; width: 404px" />
+
+            </div>
+            <div style="color: #333333; text-align: center; font-size: 20px">This is to certify that</div>
+            <br />
+       <div style="color: #333333; font-size: 30px; text-align: center; font-family: 'Harlow Solid Italic'; width: 641px; height: 85px;">{{value.student_id.first_name}} {{value.student_id.last_name}}</div>
+            <div style="color: #333333; text-align: center; font-size: 20px">has successfully completed the course, </div>
+             <div style="color: #999966; font-size: 30px; text-align: center; font-family: 'Harlow Solid Italic'; width: 641px; height: 41px;">{{value.course_id.coursename}}</div>
+            <div>
+                <table style="width:100%; height: 139px;">
+                    <tr>
+                        <td class="auto-style2">&nbsp;</td>
+                        <td class="auto-style1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="../main/static/images/certificationlogo.jpg" style="height: 102px; width: 124px" /></td>
+                        <td style="text-align: left; font-size: 20px; color: #FF4242">In partnership with E-classroom</td>
+                    </tr>
+                </table>
+                <br />
+            </div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <div style="text-align: right"></div></div>
+       </div></td>
+            </tr>
+        </table>
+        
+            
+       {% endfor %}
+    </body>
+</html>
