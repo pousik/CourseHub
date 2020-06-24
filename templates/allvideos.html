@@ -40,9 +40,9 @@ table {
 	background: #f5f5f5;
 	border-collapse: separate;
 	box-shadow: inset 0 1px 0 #fff;
-	font-size: 12px;
+	font-size: 20px;
 	line-height: 24px;
-	margin: 30px auto;
+	margin: 30px auto 30px 55px;
 	text-align: left;
 	width: 980px;
 }	
@@ -192,6 +192,8 @@ tbody:hover tr:hover td {
           <div class="col-lg-3 text-right">
             {% if user.is_authenticated %}
             <img alt="" src="{% static 'images/usernamelogo.jpg' %}" style="width: 31px; height: 30px" /><a href="{% url 'profile' username=user.username %}"><label style="font-family: Georgia, 'Times New Roman', Times, serif; color: #33CCFF">{{ user.username }}</label></a>
+            <a href="{% url 'logout' %}" onclick="javascript: document.getElementById('logout').submit()" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-unlock-alt"></span> Log out</a>
+            <form id="logout" method = "POST" action = "{% url 'logout' %}">
             {% else %}
             <a href="{% url 'login' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
             <a href="{% url 's_registration'%}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
@@ -279,11 +281,23 @@ tbody:hover tr:hover td {
     <div class="site-section">
         <div class="container">
             <div class="row">
-                 <p style="font-family: 'Bahnschrift SemiBold Condensed'; font-size: x-large; text-decoration: underline; font-style: italic">All videos</p>
                  
-                 <a href="{% url 'exam1' courseid=all_courses.0.course_id %}" class="small btn btn-primary px-4 py-2 rounded-0">Exam</a>
                  
-             <br />
+                <div style="text-align: center; font-family: Georgia, 'Times New Roman', Times, serif">
+                    {% if courselen > 0 %}
+                 <a href="{% url 'exam1' courseid=all_courses.0.course_id %}" class="small btn btn-primary px-4 py-2 rounded-0">Your Exam session is started click here for given the exam</a>
+                  <p style="color: #CC3300">* Please Watch all the lectures before going for exam</p>
+
+                    {% else %}
+                    <p style="color: #CC3300">* Your Course Teacher will upload the lectures one by one....</p>
+                    <p style="color: #CC3300">* Your have to watch all the lectures for given the Certification Examination</p>
+
+                    <p style="color: #CC3300">* After watching all the lectures the examination link will appeared here</p>
+                    {% endif %}
+                </div>
+                
+                 
+             
             <div id="courselist" class="align-self-left">
                 
 

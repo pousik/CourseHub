@@ -60,7 +60,8 @@
           </div>
           <div class="col-lg-3 text-right">
             {% if user.is_authenticated %}
-            <img alt="" src="{% static 'images/usernamelogo.jpg' %}" style="width: 31px; height: 30px" /><label style="font-family: Georgia, 'Times New Roman', Times, serif; color: #33CCFF">{{ user.username }}</label>
+            <img alt="" src="{% static 'images/usernamelogo.jpg' %}" style="width: 31px; height: 30px" /><label style="font-family: Georgia, 'Times New Roman', Times, serif; color: #33CCFF"><a href="{% url 'profile' username=user.username  %}">{{ user.username }}</a></label>
+            
             {% else %}
             <a href="{% url 'login' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
             <a href="{% url 's_registration'%}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
@@ -146,15 +147,19 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
-                
+                <p>
+                      {% if error %}
+                      <label id="errormessage" style="font-family: 'Bahnschrift SemiBold Condensed'; color: #FF0000; font-size: xx-large; font-style: oblique; text-align: center;">* {{error}}<label>
+                      {% endif %}
+                    </p>
                 </div>
             
                 
                 {% if cour is not None %}
-                <div class="align-self-left">
                         <h2 class="section-title-underline mb-5">
                             <span>Course Details</span>
                         </h2>
+                <div class="align-self-left">
                         <p><label style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-style: italic;">Course Name:</label>&nbsp;{{cour.coursename}}</p>
                         <p><label style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-style: italic;">Subject:</label>&nbsp;&nbsp;{{cour.subject}}</p>
                         <p><label style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-style: italic;">Teacher:</label>&nbsp;&nbsp;{{cour.faculty_id.first_name}}&nbsp;{{cour.faculty_id.last_name}}</p>
@@ -179,9 +184,7 @@
                     {% endif %}
                     
                     
-                    <p>
-                      
-                    </p>
+                    
             </div>
         </div>
     </div>

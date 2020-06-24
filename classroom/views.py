@@ -19,7 +19,6 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 
 from django.views.generic import View
-import pdfkit
 
 
 
@@ -30,6 +29,19 @@ import pdfkit
 User=get_user_model()
 
 
+
+def facultyprofile(request):
+    faculty=User.objects.filter(username=request.user)
+    
+    
+    return render(request, 'facultyprofile.html',{'faculty':faculty})
+    
+
+def questionconfirmation(request):
+    return render(request,'questionconfirmation.html')
+
+def addcourseconfirmation(request):
+    return render(request,'addingcourseconfirmation.html')
 
 def generatecertificate(request):
     all_courses=Examination.objects.filter(student_id=request.user)
@@ -42,7 +54,7 @@ def generatecertificate(request):
 def getPdfPage(request,courseid):
     all_student=Examination.objects.filter(examination_id=courseid)
     data={'students':all_student}
-    template=get_template("invoice.html")
+    template=get_template("certificate.html")
     data_p=template.render(data)
     response=BytesIO()
 
@@ -66,20 +78,24 @@ def experiment(request):
 def exam1(request,courseid):
     all_question=Question.objects.filter(course_id=courseid)
     value=len(all_question)
-        
+      
     exam_details=Examination()
     count=0;
     if request.method=="POST":
         try:
             for question in all_question:
-               id=question.question_id
-               choice=request.POST.get(id)
-               if choice==question.correctanswer:
-                   
-                   print('yes')
-                   count=count+1
-                 
+                id=question.question_id
+                choice=request.POST.get(id)
+                print(choice)
+                print(question.correctanswer)
+                if choice==question.correctanswer:
+                    count=count+1
+                    print(count)
+                    
+                    
+            print(count)    
             aggregate=float(count/value)*100
+            print(aggregate)
             if aggregate > 40:
                exam_details.resultstatus="pass"
             else:
@@ -87,9 +103,11 @@ def exam1(request,courseid):
             exam_details.student_id=request.user
             exam_details.course_id=Course.objects.get(course_id=courseid)
             exam_details.aggregate=aggregate
-        
+            exam_details.completiondate=date.today()
+            
             exam_details.save()
-            return render(request,'confirmregistration.html')
+            examdone=True
+            return render(request,'Exam1.html',{'all_question':all_question,'aggregate':aggregate,'value':value,'examdone':examdone})
         except IntegrityError:
             
             return render(request, 'Exam1.html' , {'error' : 'Username already given exam !!'})
@@ -125,7 +143,7 @@ def questionupload(request):
             question_details.option4 = fourthoption[i]
             question_details.correctanswer =correctanswer[i]
             question_details.save()
-        return render(request,'test.html')
+        return render(request,'questionconfirmation.html')
         
         
     
@@ -178,14 +196,19 @@ def coursesingle(request,courseid):
         cour = None
     '''
     if request.method=="POST":
-        scoureg=StudentCourseRegistration()
-        scoureg.student_id=request.user
-        scoureg.course_id=cour
-        scoureg.save()
-        return render(request,'confirmregistration.html')
-    
-    # return the emp_detail.html template file to client, and pass the filtered out Employee object.
-    return render(request, 'coursesingle.html', {'cour': cour , 'key' : courseid })
+        try:         
+            scoureg=StudentCourseRegistration()
+            scoureg.student_id=request.user
+            scoureg.course_id=cour
+            scoureg.save()
+            return render(request,'confirmregistration.html')
+        except IntegrityError:
+            return render(request, 'coursesingle.html' , {'error' : 'You have already register for this Course !!','cour': cour , 'key' : courseid})
+            
+            
+    else:
+        # return the emp_detail.html template file to client, and pass the filtered out Employee object.
+         return render(request, 'coursesingle.html', {'cour': cour , 'key' : courseid })
 
     
  
@@ -235,7 +258,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             if user.is_faculty:
-                return redirect('courseregistration')
+                return redirect('facultyprofile')
             else:
                 return redirect('home')
         else:
@@ -315,7 +338,7 @@ def courseregistration(request):
             lecture_details.lecturevideo = videos[i]
             lecture_details.save()
         
-        return redirect('test')
+        return redirect(request,'addingcourseconfirmation.html')
         
     else:
         return render(request, 'courseregistration.html')
@@ -326,12 +349,14 @@ def courseregistration(request):
 def allvideos(request,courseid):
     all_courses=Course.objects.filter(course_id=courseid)
     all_videos=Lecture.objects.filter(course_id=courseid)
+    getcourses=Question.objects.filter(course_id=courseid)
+    courselen=len(getcourses)
     '''try:
         status=Question.objects.get(course_id=courseid)
     except Question.DoesNotExists:
         status=None
        ''' 
-    return render(request, 'allvideos.html', {'all_videos':all_videos,'key' : courseid,'all_courses':all_courses})
+    return render(request, 'allvideos.html', {'all_videos':all_videos,'key' : courseid,'all_courses':all_courses,'courselen':courselen})
     
     '''
     video = None

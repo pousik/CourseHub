@@ -63,6 +63,7 @@ class Examination(models.Model):
     course_id = models.ForeignKey(Course, on_delete = models.CASCADE)
     aggregate=models.IntegerField(null=True)
     resultstatus=models.CharField(max_length=10,null=True)
+    completiondate=models.DateField(default=date.today)
     class Meta:
         db_table='Examination'
         unique_together=unique_together = (('student_id','course_id'),)

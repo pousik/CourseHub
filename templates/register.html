@@ -33,8 +33,8 @@
             width: 301px;
         }
         .px-5 {
-            width: 179px;
-            height: 37px;
+            width: 182px;
+            height: 45px;
             margin-left: 51px;
         }
         .auto-style1 {
@@ -174,7 +174,7 @@
 {% csrf_token %}
 
     <div class="site-section">
-        <div class="container" >
+        <div class="container" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height: auto; width: 800px; >
 		{% if error %}
 			<h1>{{ error }}</h1>
 		{% endif %}
@@ -182,53 +182,55 @@
             <table>
                 <tr>
                     <td class="auto-style1"></td>
-                    <td><div class="row justify-content-center" style="box-shadow:2px 2px 4px #000000">
+                    <td><div class="row justify-content-center">
                 <div class="col-md-5">
                     <div class="row">
 					     <div class="col-md-12 form-group">
-                            <label for="username">First Name</label>
+                            <label for="username" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">First Name</label>
                             <input type="text" name="firstname" id="firstname" class="form-control form-control-lg">
                         </div>
 						
 						<div class="col-md-12 form-group">
-                            <label for="username">Last Name</label>
+                            <label for="username" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">Last Name</label>
                             <input type="text" name="lastname" id="lastname" class="form-control form-control-lg">
                         </div>
 						
 						<div class="col-md-12 form-group">
-                            <label for="email">Email</label>
+                            <label for="email" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">Email</label>
                             <input type="email" name="email" id="email" class="form-control form-control-lg">
                         </div>
 						
 						<div class="col-md-12 form-group">
-                            <label for="email">Mobile Number</label>
+                            <label for="email" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">Mobile Number</label>
                             <input type="text" name="mobile" id="mobile" class="form-control form-control-lg">
                         </div>
 						
 						<div>
-						    <label for="email">&nbsp;Addresss</label>
+						    <label for="email" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">&nbsp;Addresss</label>
 						 
 						     &nbsp; <textarea id="address" name="address" class="col-md-12" rows="4" cols="50">
                              
                               </textarea>
 						</div>
                         <div class="col-md-12 form-group">
-                            <label for="username">Username</label>
+                            <label for="username" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">Username</label>
                             <input type="text" name="username" id="username" class="form-control form-control-lg">
                         </div>
                         
                         <div class="col-md-12 form-group">
-                            <label for="pword">Password</label>
+                            <label for="pword" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">Password</label>
                             <input type="password" name="password" id="pword" class="form-control form-control-lg">
                         </div>
                         <div class="col-md-12 form-group">
-                            <label for="pword2">Re-type Password</label>
+                            <label for="pword2" style="font-family: 'Copperplate Gothic Bold'; font-weight: bold;">Re-type Password</label>
                             <input type="password" name="password2" id="pword2" class="form-control form-control-lg">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <input type="submit" name="register" value="Register" class="btn btn-primary btn-lg px-5">
+                            <br />
+                            <br />
                         </div>
                     </div>
                 </div>

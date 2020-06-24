@@ -23,12 +23,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
     path('basic/',views.basic,name='basic'),
-    
-    
+    path('addcourseconfirmation/',views.addcourseconfirmation,name='addcourseconfirmation'),
+    path('questionconfirmation/',views.questionconfirmation,name='questionconfirmation'),
     path('experiment/',views.experiment,name='experiment'),
      path('confirmregistration/',views.confirmregistration,name='confirmregistration'),
      path('generatecertificate/',views.generatecertificate,name='generatecertificate'),
-    
+    path('facultyprofile/',views.facultyprofile,name='facultyprofile'),
     path('login/',views.login,name='login'),
     path('test/',views.test,name='test'),
     path('videotest/',views.videotest,name='videotest'),
@@ -46,7 +46,7 @@ urlpatterns = [
     path(r'^coursesingle/(?P<courseid>\w+)/$', views.coursesingle, name='coursesingle'),
     path('questionupload/',views.questionupload,name='questionupload'),
     path(r'^exam1/(?P<courseid>\w+)/$', views.exam1, name='exam1'),
-     path(r'^invoice/(?P<courseid>\w+)/$', views.getPdfPage, name='invoice'),
+     path(r'^certificate/(?P<courseid>\w+)/$', views.getPdfPage, name='certificate'),
     
     
    

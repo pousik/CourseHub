@@ -2,18 +2,16 @@
 <html lang="en">
 
 <head>
-  <title>All Courses</title>
+  <title>{% block title %}{% endblock %}</title>
     <style type="text/css">
-        .mb-4 {
-            width: 1212px;
-            height: 430px;
-            margin-left: 143px;
+        .align-self-center {
+            width: 734px;
         }
-        .site-section {
-            width: 1353px;
+        #courselist {
+            width: 887px;
         }
-        .course-1-item {
-            width: 282px;
+        .auto-style1 {
+            width: 512px;
         }
     </style>
   {% load static %}
@@ -40,9 +38,8 @@
   <link href="{% static 'css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-
-
+  
+    
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -65,18 +62,20 @@
           <div class="col-lg-9 d-none d-lg-block">
             <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a> 
             <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span>9609185858</a> 
-            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span>kousik.pramanik@gmail.com</a> 
+            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> kousik.pramanik97@gmail.com</a> 
           </div>
           <div class="col-lg-3 text-right">
-          {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
             <img alt="" src="{% static 'images/usernamelogo.jpg' %}" style="width: 31px; height: 30px" /><a href="{% url 'profile' username=user.username %}"><label style="font-family: Georgia, 'Times New Roman', Times, serif; color: #33CCFF">{{ user.username }}</label></a>
-            <a href="{% url 'logout' %}" onclick="javascript: document.getElementById('logout').submit()" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-unlock-alt"></span> Log out</a>
+               <a href="{% url 'logout' %}" onclick="javascript: document.getElementById('logout').submit()" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-unlock-alt"></span> Log out</a>
             <form id="logout" method = "POST" action = "{% url 'logout' %}">
+            {% csrf_token %}
+            <input type="hidden" />
+            </form>
             {% else %}
             <a href="{% url 'login' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
-            <a href="{% url 's_registration'%}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
+            <a href="{% url 'f_registration'%}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
             {% endif %}
-            
           </div>
         </div>
       </div>
@@ -87,7 +86,7 @@
         <div class="d-flex align-items-center">
           <div class="site-logo">
             <a href="{% url 'home' %}" class="d-block">
-             <img src="../media/images/E-Classroom-Logo.jpg" alt="Image" class="img-fluid" style="width:134px;height:65px">
+               <img src="{% static 'images/LOGO.jpg' %}" alt="Image" class="img-fluid" style="width:125px; height:57px">
             </a>
           </div>
           <div class="mr-auto">
@@ -97,17 +96,17 @@
                   <a href="{% url 'home' %}" class="nav-link text-left">Home</a>
                 </li>
                 <li class="has-children">
-                  <a href="about.html" class="nav-link text-left">About Us</a>
+                  <a href="about.html" class="nav-link text-left">Course</a>
                   <ul class="dropdown">
-                    <li><a href="teachers.html">Our Teachers</a></li>
-                    <li><a href="about.html">Our School</a></li>
+                    <li><a href="teachers.html">Course Under Me</a></li>
+                    <li><a href="about.html">Completed Course</a></li>
                   </ul>
                 </li>
                 <li>
-                  <a href="admissions.html" class="nav-link text-left">Admissions</a>
+                  <a href="{% url 'courseregistration' %}" class="nav-link text-left">Add New Course</a>
                 </li>
                 <li class="active">
-                  <a href="{% url 'courses' %}" class="nav-link text-left">Courses</a>
+                  <a href="{% url 'questionupload' %}" class="nav-link text-left">Upload Question</a>
                 </li>
                 <li>
                     <a href="contact.html" class="nav-link text-left">Contact</a>
@@ -133,12 +132,11 @@
     </header>
 
     
-    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('{% static "images/bg_1.jpg" %}')">
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('images/bg_1.jpg')">
         <div class="container">
           <div class="row align-items-end">
             <div class="col-lg-7">
-              <h2 class="mb-0">Courses</h2>
-              <p></p>
+              <h2 class="mb-0">{% block heading %}{% endblock %}</h2>
             </div>
           </div>
         </div>
@@ -147,63 +145,53 @@
 
     <div class="custom-breadcrumns border-bottom">
       <div class="container">
-        <a href="index.html">Home</a>
-        <span class="mx-3 icon-keyboard_arrow_right"></span>
-        <span class="current">Courses</span>
+        
       </div>
     </div>
-    
+
     <div class="site-section">
         <div class="container">
-        
             <div class="row">
-            
-            
-                {% for key,value in courses.items %}
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                
-                    <div class="course-1-item">
-                        <figure class="thumnail">
-                                <a href="course-single.html"><img src="{{value.image.url}}" alt="Image" class="img-fluid"></a>
-                        <div class="price">FREE</div>
-                        <div class="category"><h3>{{ value.subject }}</h3></div>  
-                        </figure>
-                        <div class="course-1-content pb-4">
-                        <h2>{{ value.coursename }}</h2>
-                        <div class="rating text-center mb-3">
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                            <span class="icon-star2 text-warning"></span>
-                        </div>
-                        {% if user.is_authenticated %}
-                        <p style="width: 134px"><a href="{% url 'coursesingle' courseid=key %}" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>
-                        {% else %}
-                        <p style="width: 134px"><button class="btn btn-primary rounded-0 px-4" onclick="myFunction()">Enroll In This Course</button></p>
-                        {% endif %}
-                        </div>
-                    </div>
+                 
+            {% block body %}{% endblock %}
+        
+            </div>
+                 
+              
                     
-                </div>
-                &nbsp;
-                
-                {% endfor %}
+                    
             </div>
-             
-            </div>
-         
-            </div>
-     
+        </div>
+    </div>
 
-    
+    <div class="section-bg style-1" style="background-image: url('images/hero_1.jpg');">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+              <span class="icon flaticon-mortarboard"></span>
+              <h3>Our Philosphy</h3>
+              
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+              <span class="icon flaticon-school-material"></span>
+              <h3>Academics Principle</h3>
+              
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+              <span class="icon flaticon-library"></span>
+              <h3>Key of Success</h3>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
-    <div class="footer">
+    <div class="footer">+
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
-            <p class="mb-4"><img src="{% static 'images/logo.png' %}" alt="Image" class="img-fluid"></p>
+            <p class="mb-4"><img src="images/logo.png" alt="Image" class="img-fluid"></p>
             <p></p>  
             <p><a href="#">Learn More</a></p>
           </div>
@@ -244,7 +232,7 @@
         <div class="row">
           <div class="col-12">
             <div class="copyright">
-            
+                
             </div>
           </div>
         </div>
@@ -277,11 +265,8 @@
 
 
   <script src="{% static 'js/main.js' %}"></script>
-  <script>
-function myFunction() {
-  alert("You must login to register for a course");
-}
-</script>
+  
+  
 
 </body>
 

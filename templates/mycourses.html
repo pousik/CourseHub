@@ -67,6 +67,8 @@
           <div class="col-lg-3 text-right">
             {% if user.is_authenticated %}
             <img alt="" src="{% static 'images/usernamelogo.jpg' %}" style="width: 31px; height: 30px" /><a href="{% url 'profile' username=user.username %}"><label style="font-family: Georgia, 'Times New Roman', Times, serif; color: #33CCFF">{{ user.username }}</label></a>
+            <a href="{% url 'logout' %}" onclick="javascript: document.getElementById('logout').submit()" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-unlock-alt"></span> Log out</a>
+            <form id="logout" method = "POST" action = "{% url 'logout' %}">
             {% else %}
             <a href="{% url 'login' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
             <a href="{% url 's_registration'%}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
@@ -79,7 +81,7 @@
 
       <div class="container">
         <div class="d-flex align-items-center">
-          <<div class="site-logo">
+          <div class="site-logo">
             <a href="{% url 'home' %}" class="d-block">
              <img src="{% static 'images/LOGO.jpg' %}" alt="Image" class="img-fluid" style="width:134px; height:65px">
             </a>

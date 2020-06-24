@@ -1,16 +1,142 @@
 <html>
 
-<form action="" method="POST">
+
+
+<head>
+    <style type="text/css">
+        #question {
+            margin-left: 36px;
+            margin-top: 45px;
+        }
+        .px-5 {
+            margin-left: 244px;
+        }
+
+       
+
+
+
+.header {
+	width: 100%;
+	height: 70px;
+	padding: 20px;
+	background-color: #eee;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+}
+
+
+.main {
+	min-height: 1500px;
+	padding: 140px 40px 40px;
+	flex: 1;
+}
+
+
+
+
+
+
+* {
+	box-sizing: border-box;
+}
+        .auto-style1 {
+            width: 92px;
+        }
+    </style>
+</head>
+    {% load static %}
+
+
+    <header class="header">
+
+        <table style="width: 100%;">
+            <tr>
+                <td class="auto-style1" style="color: #0000CC; font-weight: bolder; font-size: large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Time Left:</td>
+                <td><span id="display" style="color:#FF0000;font-size:20px"></span></td>
+                <td style="font-size: large; text-align: right; font-weight: bolder">User Name:</td>
+                <td> {% if user.is_authenticated %}&nbsp;&nbsp;&nbsp;
+        <label id="user" style="color: #99CC00; font-weight: bolder; font-size: large; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> {{user.username}} </label>
+    {% endif %}</td>
+            </tr>
+            </table>
+   
+	
+       
+            
+</header>
+<br />
+    <br />
+    <br />
+<div>
+
+</div>
+
+    <div id="quiz-time-left"></div>
+
+ 
+<form action="" name="exam" id="exam" method="POST">
 {% csrf_token %}
 
-<div>
-{% if user.is_authenticated %}
-   <label id="user"> {{user.username}} </label>
-{% endif %}
-</div>
+    
+    
+            
+    
 <div style="width: 802px; height: 129px">
-  {% if value > 0 %}
-    {% for value in all_question %}
+  
+    {% if error %}
+        <label><h3>{{error}}</h3></label>
+        
+
+    {% else %}
+    
+    <div id="note" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: medium; color: #FF0000">
+        <p>* Please submit the answer before ending the timer otherwise it will be submitted automatically.</p>
+        <p>* There are no negative marks for the wrong answer </p>
+       
+    </div>
+
+    <div id="main" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height: auto; width: 685px; margin-left: 256px;"> 
+        {% for value in all_question %}
+            <div id="question">
+                <div style="font-family: 'Copperplate Gothic Bold'; color: #0066FF; font-size: x-large;"><h4>Q{{forloop.counter}}: {{value.questiontext}}</h4></div>
+                <div style="font-family: 'Bahnschrift'; font-size: large; font-weight: lighter">A) <input type="radio" id="{{value.option1}}" value="{{value.option1}}" name="{{value.question_id}}" />{{value.option1}}</div>
+                <div style="font-family: 'Bahnschrift'; font-size: large; font-weight: lighter">B) <input type="radio" id="Radio1" value="{{value.option2}}" name="{{value.question_id}}" />{{value.option2}}</div>
+                <div style="font-family: 'Bahnschrift'; font-size: large; font-weight: lighter">C) <input type="radio" id="Radio2" value="{{value.option3}}" name="{{value.question_id}}" />{{value.option3}}</div>
+                <div style="font-family: 'Bahnschrift'; font-size: large; font-weight: lighter">D) <input type="radio" id="Radio3" value="{{value.option4}}" name="{{value.question_id}}" />{{value.option4}}</div>
+                {% if examdone %}
+                
+                <div id="correctAnswer" style="color: #00CC00">Correct Answer:{{value.correctanswer}}</div>
+                {% endif %}
+                
+            </div>
+        {% endfor %}
+        <br />
+        <br />
+        
+            {% if examdone %}
+              <div id="result" style="font-weight: bold; font-size: x-large; font-family: Georgia, 'Times New Roman', Times, serif; color: #660033"> Your Obtain Aggregate is : {{aggregate}}<br />
+                  <br />
+                  <br />
+                  <br />
+        </div>
+              {% else %}
+              <div><input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg px-5" style=" background-color: #C0C0C0; font-size: large;" />
+           <br />
+    <br />
+    <br />
+                  
+                   {% endif %}
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    {% endif %}
+    <!--
     <table style="width: 100%; height: 123px;">
         <tr>
             <td class="auto-style3"style="text-align: right; font-family: 'Arial Black'; font-size: large; font-weight: bold;">Q{{forloop.counter}}:-</td>
@@ -39,64 +165,71 @@
         </tr>
         
         <tr>
-            <td class="auto-style3" style="text-align: right"></td>
-            <td class="auto-style2"><label id="correctAnswe{{forloop.counter}}" style="visibility:hidden">{{value.correctanswer}}</label></td>
+            <td class="auto-style3" style="text-align: right">Correct Answer:</td>
+            <td class="auto-style2"><label id="correctAnswe{{forloop.counter}}">{{value.correctanswer}}</label></td>
             
         </tr>
         
         
     </table>
     <br/>
+    -->
     
-    {% endfor %}
     
     <div class="row">
         <div class="col-12">
-             <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg px-5" />
+             
      
         </div>
-      {% else %}  
+    
 
-        <Label><h1> Question is not uploaded yet</h1></label>
         
-    {% endif %}
-        {% if error %}
-        <label><h3>{{error}}</h3></label>
-        {% endif %}
+        
+    
+        
    </div>
 </div>
 </form>
 
-<!--
-<script>
-        function getresult()
-        {
-           var e=document.getElementByTagName("input");
-           var i;
-           var count=0;
-           for(i=0;i<=e.length;i++)
-           {
-           
-              
-             if(e[i].type=="radio")
-             {
-                 if(e[i].cheked)
-                 {
-                     var option=e[i].value;
-                     var id="correctAnswer"+i+1;
-                     var correctanswer=document.getElementById(id);
-                     var correct=correctanswer.innerText;
-                     if(option.localeCompare(correct)==0)
-                     {
-                        count=count+1;
-                     }
-                 }
+
+ <script type="text/javascript">
+
+     
+
+     var div = document.getElementById('display');
+     var submitted = document.getElementById('submitted');
+
+     function CountDown(duration, display) {
+
+         var timer = duration, minutes, seconds;
+
+         var interVal = setInterval(function () {
+             minutes = parseInt(timer / 60, 10);
+             seconds = parseInt(timer % 60, 10);
+
+             minutes = minutes < 10 ? "0" + minutes : minutes;
+             seconds = seconds < 10 ? "0" + seconds : seconds;
+             display.innerHTML = "<b>" + minutes + "m : " + seconds + "s" + "</b>";
+             if (timer > 0) {
+                 --timer;
+             } else {
+                 clearInterval(interVal)
+                 SubmitFunction();
              }
-           }
-           document.getElementById("demo").innerHTML=count;
-           
-        }
-    <script/>
--->
+
+         }, 1000);
+
+     }
+
+     function SubmitFunction() {
+         submitted.innerHTML = "Time is up!";
+         document.getElementById('exam').submit();
+
+     }
+     CountDown(600, div);
+
+
+</script>
+
 
 </html>
