@@ -1,4 +1,6 @@
 <head>
+<title>Completed Course</title>
+
     <style type="text/css">
         .px-5 {
             height: 30px;
@@ -209,7 +211,11 @@ table.vitamins tfoot td {
                 <td>{{value.aggregate}}</td>
                 <td>{{value.resultstatus}}</td>
                 <td class="auto-style1">{{value.completiondate}}</td>
+               
                 <td><a href="{% url 'certificate' courseid=value.examination_id %}">Get Certificate</a></td>
+                
+               
+                
             </tr>
             {% endfor %}
         </tbody>

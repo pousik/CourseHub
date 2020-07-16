@@ -87,7 +87,7 @@
         <div class="d-flex align-items-center">
           <div class="site-logo">
             <a href="{% url 'home' %}" class="d-block">
-             <img src="../media/images/E-Classroom-Logo.jpg" alt="Image" class="img-fluid" style="width:134px;height:65px">
+             <img src="{% static 'images/LOGO.jpg' %}" alt="Image" class="img-fluid" style="width:134px;height:65px">
             </a>
           </div>
           <div class="mr-auto">
@@ -100,12 +100,10 @@
                   <a href="about.html" class="nav-link text-left">About Us</a>
                   <ul class="dropdown">
                     <li><a href="teachers.html">Our Teachers</a></li>
-                    <li><a href="about.html">Our School</a></li>
+                    <li><a href="about.html">Our policies</a></li>
                   </ul>
                 </li>
-                <li>
-                  <a href="admissions.html" class="nav-link text-left">Admissions</a>
-                </li>
+                
                 <li class="active">
                   <a href="{% url 'courses' %}" class="nav-link text-left">Courses</a>
                 </li>

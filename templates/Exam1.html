@@ -1,6 +1,6 @@
 <html>
 
-
+<title>Examination</title>
 
 <head>
     <style type="text/css">
@@ -95,6 +95,7 @@
     
     <div id="note" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: medium; color: #FF0000">
         <p>* Please submit the answer before ending the timer otherwise it will be submitted automatically.</p>
+         <p>* Each question contains 1 marks </p>
         <p>* There are no negative marks for the wrong answer </p>
        
     </div>
@@ -118,7 +119,9 @@
         <br />
         
             {% if examdone %}
-              <div id="result" style="font-weight: bold; font-size: x-large; font-family: Georgia, 'Times New Roman', Times, serif; color: #660033"> Your Obtain Aggregate is : {{aggregate}}<br />
+              <div id="result" style="font-weight: bold; font-size: x-large; font-family: Georgia, 'Times New Roman', Times, serif; color: #660033"> Your Obtain Aggregate is : {{aggregate}}% 
+              <a href="{% url 'home' %}">Go to home</a>
+              <br />
                   <br />
                   <br />
                   <br />

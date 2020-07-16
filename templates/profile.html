@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Log In</title>
+  <title>Profile</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% load static %}
@@ -122,7 +122,7 @@
                 <li class="has-children">
                   <a href="about.html" class="nav-link text-left">My courses</a>
                   <ul class="dropdown">
-                    <li><a href="{% url 'mycourses' username=student.id %}">Ongoing Courses</a></li>
+                    <li><a href="{% url 'mycourses' username=student.id %}">Registered Courses</a></li>
                     <li><a href="{% url 'generatecertificate' %}">Completed Courses</a></li>
                   </ul>
                 </li>

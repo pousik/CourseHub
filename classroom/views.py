@@ -46,6 +46,8 @@ def addcourseconfirmation(request):
 def generatecertificate(request):
     all_courses=Examination.objects.filter(student_id=request.user)
     
+    
+    
         
         
     return render(request,'generatecertificate.html',{'all_courses':all_courses})
@@ -300,7 +302,7 @@ def f_registration(request):
                                                 address =  request.POST['address'], email = request.POST['email'],
                                                 mobile= request.POST['mobile'],is_faculty=True)
                 auth.login(request, user)
-                return redirect('f_registration')
+                return render(request,'login.html')
         else:
             return render(request, 'facultyregister.html' , {'error' : 'Password dis not Match !!'})
         

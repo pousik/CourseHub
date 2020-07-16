@@ -55,9 +55,9 @@
             <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> kousik.pramanik@gmail.com</a> 
           </div>
           <div class="col-lg-3 text-right">
-            <a href="login.html" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
-            <a href="register.html" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span>Student Register</a>
-            <a href="register.html" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span>Faculty Register</a>
+            <a href="{% url 'login' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
+            
+            <a href="register.html" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span>Register</a>
           </div>
           
           
@@ -83,14 +83,12 @@
                   <a href="about.html" class="nav-link text-left">About Us</a>
                   <ul class="dropdown">
                     <li><a href="teachers.html">Our Teachers</a></li>
-                    <li><a href="about.html">Our School</a></li>
+                    <li><a href="about.html">Our policies</a></li>
                   </ul>
                 </li>
+               
                 <li>
-                  <a href="admissions.html" class="nav-link text-left">Admissions</a>
-                </li>
-                <li>
-                  <a href="courses.html" class="nav-link text-left">Courses</a>
+                  <a href="{% url 'courses' %}" class="nav-link text-left">Courses</a>
                 </li>
                 <li>
                     <a href="contact.html" class="nav-link text-left">Contact</a>
